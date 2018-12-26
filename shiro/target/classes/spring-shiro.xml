@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+	http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+   <!-- 登录和权限范围 -->
+   <bean id="shiroRealm" class="com.shiro.PowerRealm"></bean>
+
+   	<!-- 安全控制器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="shiroRealm" />
+	</bean>
+	
+	<!-- 注册所有权限 -->
+	<bean id="powerChainDefinition" class="com.shiro.PowerChainDefinition">
+	     <property name="urls">
+	          <value>
+	               /login.jsp = anon
+	               /login.do  = anon
+	               /logout    =  anon
+	               /index.jsp = user
+	          </value>
+	     </property>
+	</bean>
+
+	
+	<!-- 具体拦截功能，id要和web.xml里面过滤器名字一样 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login.jsp" />
+		<property name="unauthorizedUrl" value="/error.jsp" />
+		<property name="filterChainDefinitionMap"  ref="powerChainDefinition"></property>
+	</bean>
+</beans> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

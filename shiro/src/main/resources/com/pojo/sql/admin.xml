@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.AdminDAO">
+    <!-- 查某个用户有哪些权限 
+          public List<Power>  getPowerByUser(String username);
+    -->
+    <select id="getPowerByUser"  parameterType="string" 	resultType="com.pojo.Power">
+          select Power.id,Power.name,Power.pid,url from Power 
+                 join Role_Power on Power.id=Role_Power.pid
+                 join `role`     on role.id = `role_power`.`rid`
+                 join `user_role` on `role`.id = `user_role`.`rid`
+                 join admin      on admin.`id`=`user_role`.uid
+                 where username=#{value}
+    </select>
+    
+</mapper>
+

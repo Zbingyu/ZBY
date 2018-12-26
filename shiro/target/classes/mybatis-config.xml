@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+       <setting name="lazyLoadingEnabled" value="true"/>
+       <setting name="aggressiveLazyLoading" value="false"/>
+       <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+    
+    <plugins>
+		<plugin
+			interceptor="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor">
+		</plugin>
+	</plugins>
+
+    
+    <mappers>
+       <mapper resource="com/pojo/sql/student.xml"/>
+       <mapper resource="com/pojo/sql/admin.xml"/>
+       <mapper resource="com/pojo/sql/power.xml"/>
+       <mapper resource="com/pojo/sql/role_power.xml"/>
+       <mapper resource="com/pojo/sql/role.xml"/>
+       <mapper resource="com/pojo/sql/user_role.xml"/>
+    </mappers>
+    
+    
+</configuration>
